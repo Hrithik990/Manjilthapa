@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book an Appointment — Northbound Education</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="navwrap">
+        <a href="index.html" class="brand">
+          <div class="brand-mark">NE</div>
+          <div class="brand-name">Northbound <span>Education</span></div>
+        </a>
+        <nav>
+          <ul id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <a href="appointment.html" class="nav-cta">Book Appointment</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="page-hero" style="padding-bottom: 0">
+      <div class="container">
+        <div class="eyebrow">Appointment</div>
+        <h1>Check in for your<br />free consultation.</h1>
+        <p>
+          30 minutes, no obligation. We'll talk about your target test, target
+          country, and the fastest realistic path between the two.
+        </p>
+      </div>
+    </div>
+
+    <section id="appointment">
+      <div class="container appt-wrap">
+        <div class="appt-info reveal">
+          <h3>How booking works</h3>
+          <div class="appt-steps">
+            <div class="appt-step">
+              <div class="num">1</div>
+              <div>
+                <strong>Pick a time</strong>
+                <p>
+                  Choose any open slot directly on the calendar — no
+                  back-and-forth emails.
+                </p>
+              </div>
+            </div>
+            <div class="appt-step">
+              <div class="num">2</div>
+              <div>
+                <strong>Get instant confirmation</strong>
+                <p>
+                  You'll receive a calendar invite and reminder automatically.
+                </p>
+              </div>
+            </div>
+            <div class="appt-step">
+              <div class="num">3</div>
+              <div>
+                <strong>Meet your coach</strong>
+                <p>In person in Kathmandu, or over a video call.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="appt-card reveal" style="padding: 0; overflow: hidden">
+          <div
+            class="bp-top"
+            style="border-bottom: 1px dashed var(--paper-line)"
+          >
+            <div class="bp-brand">Northbound Education</div>
+            <div class="bp-tag">Live Scheduling</div>
+          </div>
+          <!-- Calendly inline widget begin -->
+          <div
+            class="calendly-inline-widget"
+            data-url="https://calendly.com/ritik90/book-appointment?hide_gdpr_banner=1"
+            style="min-width: 320px; height: 700px"
+          ></div>
+          <!-- Calendly inline widget end -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Calendly widget script -->
+    <script
+      type="text/javascript"
+      src="https://assets.calendly.com/assets/external/widget.js"
+      async
+    ></script>
+
+    <footer class="site-footer">
+      <div class="container" style="padding-top: 0">
+        <div class="perforation"></div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© 2026 Northbound Education. All rights reserved.</span>
+        <span>Sample content — replace placeholders before launch.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

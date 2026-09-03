@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Achievements — Northbound Education</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&family=Lato:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="navwrap">
+        <a href="index.html" class="brand">
+          <div class="brand-mark">NE</div>
+          <div class="brand-name">Northbound <span>Education</span></div>
+        </a>
+        <nav>
+          <ul id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="experience.html">Experience</a></li>
+            <li><a href="achievements.html">Achievements</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <a href="appointment.html" class="nav-cta">Book Appointment</a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="experience.html">Experience</a></li>
+          <li><a href="achievements.html">Achievements</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+
+    <div class="page-hero" id="achievements" style="padding-bottom: 96px">
+      <div class="container">
+        <div class="eyebrow">Achievements</div>
+        <h1>Stamped, sealed,<br />departed.</h1>
+        <p>
+          Real scores and stories from students I've coached. This wall updates
+          live — every story submitted through the form below is added
+          automatically for all visitors to see.
+        </p>
+
+        <div class="review-grid" id="reviewGrid" style="margin-top: 56px">
+          <div class="review-loading">Loading student stories…</div>
+        </div>
+
+        <div class="share-story reveal">
+          <h3>Share your success story</h3>
+          <p>
+            Got your target score or offer letter? Add your story to the wall
+            above — it will be visible to everyone visiting this page.
+          </p>
+          <form id="reviewForm">
+            <div class="form-grid">
+              <div class="field">
+                <label>Your Name</label
+                ><input
+                  type="text"
+                  id="rvName"
+                  required
+                  placeholder="e.g. Anisha Gurung"
+                />
+              </div>
+              <div class="field">
+                <label>Destination Country</label>
+                <select id="rvCountry" required>
+                  <option value="">Select country</option>
+                  <option>UK 🇬🇧</option>
+                  <option>USA 🇺🇸</option>
+                  <option>Malta 🇲🇹</option>
+                  <option>Finland 🇫🇮</option>
+                  <option>Cyprus 🇨🇾</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Test &amp; Score</label
+                ><input
+                  type="text"
+                  id="rvScore"
+                  required
+                  placeholder="e.g. IELTS 7.5"
+                />
+              </div>
+              <div class="field">
+                <label>Test Type</label>
+                <select id="rvTest" required>
+                  <option value="">Select test</option>
+                  <option>IELTS</option>
+                  <option>PTE</option>
+                  <option>Duolingo (DET)</option>
+                </select>
+              </div>
+              <div class="field full">
+                <label>Your Story</label
+                ><textarea
+                  id="rvQuote"
+                  required
+                  placeholder="Tell us about your prep and result…"
+                ></textarea>
+              </div>
+            </div>
+            <button type="submit" class="submit-btn">Add My Story</button>
+            <div class="form-note">
+              Visible publicly to everyone who views this page.
+            </div>
+            <div class="success-msg" id="reviewSuccess">
+              ✓ Thank you! Your story has been added to the wall above.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container" style="padding-top: 0">
+        <div
+          class="perforation"
+          style="border-top-color: rgba(245, 239, 225, 0.2)"
+        ></div>
+      </div>
+      <div class="container footer-bottom">
+        <span>© 2026 Northbound Education. All rights reserved.</span>
+        <span>Sample content — replace placeholders before launch.</span>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+      const DEFAULT_REVIEWS = [
+        {
+          name: "Anisha Gurung",
+          country: "UK 🇬🇧",
+          test: "IELTS",
+          score: "IELTS 7.5",
+          quote:
+            "Six months of focused speaking practice took me from 6.0 to 7.5. I'm starting my Master's in Manchester this fall.",
+        },
+        {
+          name: "Bishal Rai",
+          country: "Finland 🇫🇮",
+          test: "Duolingo (DET)",
+          score: "DET 130",
+          quote:
+            "The fast-track Duolingo program fit around my job. Got my offer letter from a Finnish university within two months.",
+        },
+        {
+          name: "Priya Shrestha",
+          country: "Malta 🇲🇹",
+          test: "PTE",
+          score: "PTE 73",
+          quote:
+            "The PTE strategies here are nothing like generic templates — they're built around how the scoring actually works.",
+        },
+        {
+          name: "Kiran Thapa",
+          country: "USA 🇺🇸",
+          test: "IELTS",
+          score: "IELTS 8.0",
+          quote:
+            "Mock interviews for my visa made the real one feel easy. Landed in Boston last spring.",
+        },
+        {
+          name: "Sujata Lama",
+          country: "Cyprus 🇨🇾",
+          test: "PTE",
+          score: "PTE 68",
+          quote:
+            "Counselling didn't stop at the test score — help with my SOP made a real difference in my application.",
+        },
+        {
+          name: "Rohan Basnet",
+          country: "UK 🇬🇧",
+          test: "Duolingo (DET)",
+          score: "DET 125",
+          quote:
+            "I needed a quick admit for the January intake. The two-week intensive got me there.",
+        },
+      ];
+
+      function initials(name) {
+        return name
+          .split(" ")
+          .map((w) => w[0])
+          .slice(0, 2)
+          .join("")
+          .toUpperCase();
+      }
+
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function renderReviews(list) {
+        const grid = document.getElementById("reviewGrid");
+        if (!list || list.length === 0) {
+          grid.innerHTML =
+            '<div class="review-empty">No stories yet — be the first to share yours below.</div>';
+          return;
+        }
+        grid.innerHTML = list
+          .map(
+            (r) => `
+    <div class="review-card reveal in">
+      <div class="stamp"><b>${(r.score || "").split(" ").pop()}</b><span>${r.test || ""}</span></div>
+      <div class="review-top">
+        <div class="avatar">${initials(r.name || "")}</div>
+        <div>
+          <div class="review-name">${escapeHtml(r.name || "")}</div>
+          <div class="review-meta">${escapeHtml(r.country || "")} · ${escapeHtml(r.score || "")}</div>
+        </div>
+      </div>
+      <p class="review-quote">"${escapeHtml(r.quote || "")}"</p>
+    </div>
+  `,
+          )
+          .join("");
+
+        document.querySelectorAll("#reviewGrid .stamp").forEach((el, i) => {
+          el.style.transform = "rotate(-10deg) scale(0)";
+          setTimeout(
+            () => {
+              el.style.transform = "rotate(-10deg) scale(1)";
+            },
+            150 + i * 90,
+          );
+        });
+      }
+
+      async function loadReviews() {
+        try {
+          const result = await window.storage.get("student-reviews", true);
+          const stored = result ? JSON.parse(result.value) : [];
+          renderReviews([...DEFAULT_REVIEWS, ...stored]);
+        } catch (e) {
+          renderReviews(DEFAULT_REVIEWS);
+        }
+      }
+      loadReviews();
+
+      document
+        .getElementById("reviewForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const newReview = {
+            name: document.getElementById("rvName").value.trim(),
+            country: document.getElementById("rvCountry").value,
+            test: document.getElementById("rvTest").value,
+            score: document.getElementById("rvScore").value.trim(),
+            quote: document.getElementById("rvQuote").value.trim(),
+            ts: Date.now(),
+          };
+          try {
+            let stored = [];
+            try {
+              const existing = await window.storage.get(
+                "student-reviews",
+                true,
+              );
+              stored = existing ? JSON.parse(existing.value) : [];
+            } catch (err) {
+              stored = [];
+            }
+            stored.push(newReview);
+            await window.storage.set(
+              "student-reviews",
+              JSON.stringify(stored),
+              true,
+            );
+            renderReviews([...DEFAULT_REVIEWS, ...stored]);
+            document.getElementById("reviewSuccess").classList.add("show");
+            e.target.reset();
+            setTimeout(
+              () =>
+                document
+                  .getElementById("reviewSuccess")
+                  .classList.remove("show"),
+              4500,
+            );
+          } catch (err) {
+            console.error("Could not save review", err);
+            alert(
+              "Sorry, something went wrong saving your story. Please try again.",
+            );
+          }
+        });
+    </script>
+  </body>
+</html>
