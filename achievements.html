@@ -10,80 +10,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
-    <style>
-      /* --- Admin panel (only relevant when ?admin=1 is used) --- */
-      #adminPanel {
-        display: none;
-        margin-top: 40px;
-        padding: 24px;
-        border: 2px dashed #999;
-        border-radius: 12px;
-        background: #faf8f5;
-      }
-      #adminPanel.show {
-        display: block;
-      }
-      #adminPanel h3 {
-        margin-top: 0;
-      }
-      .admin-login {
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        flex-wrap: wrap;
-      }
-      .admin-login input {
-        padding: 8px 10px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-family: inherit;
-      }
-      .admin-login button,
-      .pending-card button {
-        padding: 8px 14px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-family: inherit;
-        font-weight: 600;
-      }
-      .admin-login button {
-        background: #222;
-        color: #fff;
-      }
-      .pending-card {
-        background: #fff;
-        border: 1px solid #e2e2e2;
-        border-radius: 10px;
-        padding: 16px 18px;
-        margin-top: 14px;
-      }
-      .pending-card .pc-meta {
-        font-size: 13px;
-        color: #666;
-        margin-bottom: 6px;
-      }
-      .pending-card .pc-quote {
-        font-style: italic;
-        margin: 8px 0 12px;
-      }
-      .pending-card .pc-actions {
-        display: flex;
-        gap: 10px;
-      }
-      .pending-card .approve-btn {
-        background: #1e7c3d;
-        color: #fff;
-      }
-      .pending-card .reject-btn {
-        background: #b23b3b;
-        color: #fff;
-      }
-      .admin-empty {
-        color: #777;
-        font-size: 14px;
-      }
-    </style>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
   </head>
   <body>
     <header>
@@ -123,9 +51,8 @@
         <div class="eyebrow">Achievements</div>
         <h1>Stamped, sealed,<br />departed.</h1>
         <p>
-          Real scores and stories from students I've coached. This wall updates
-          live — every story submitted through the form below is reviewed
-          before it appears here.
+          Real scores and stories from students I've coached. Every story is
+          reviewed before it goes live, so this wall stays genuine.
         </p>
 
         <div class="review-grid" id="reviewGrid" style="margin-top: 56px">
@@ -136,7 +63,7 @@
           <h3>Share your success story</h3>
           <p>
             Got your target score or offer letter? Submit your story below —
-            it'll be added to the wall above once it's reviewed.
+            I'll review it and it will appear on this wall once approved.
           </p>
           <form id="reviewForm">
             <div class="form-grid">
@@ -187,28 +114,26 @@
                 ></textarea>
               </div>
             </div>
-            <button type="submit" class="submit-btn">Add My Story</button>
+            <button type="submit" class="submit-btn">Submit My Story</button>
             <div class="form-note">
-              Submitted stories are reviewed before they go live.
+              Your story is reviewed before it appears publicly — it won't show
+              up immediately.
             </div>
             <div class="success-msg" id="reviewSuccess">
-              ✓ Thank you! Your story has been submitted for review.
+              ✓ Thank you! Your story has been submitted for review and will
+              appear here once approved.
             </div>
           </form>
         </div>
 
-        <!-- Admin moderation panel — only shown with ?admin=1 in the URL -->
-        <div id="adminPanel">
-          <h3>Pending story review</h3>
-          <div id="adminLoginBox" class="admin-login">
-            <input
-              type="password"
-              id="adminPassword"
-              placeholder="Admin password"
-            />
-            <button id="adminLoginBtn" type="button">Unlock</button>
+        <div class="admin-panel" id="adminPanel">
+          <h3>Pending Stories</h3>
+          <div class="admin-sub">
+            Admin review — not visible to site visitors
           </div>
-          <div id="adminList" style="display: none"></div>
+          <div class="pending-list" id="pendingList">
+            <div class="pending-empty">Loading pending submissions…</div>
+          </div>
         </div>
       </div>
     </div>
@@ -221,25 +146,13 @@
           <div class="footer-column"><strong>Work</strong><a href="experience.html">Experience</a><a href="achievements.html">Student results</a><a href="appointment.html">Book appointment</a></div>
           <div class="footer-column"><strong>Connect</strong><a href="contact.html">Email me</a><a href="contact.html">Contact</a><a href="contact.html">Kathmandu, Nepal</a></div>
         </div>
-        <div class="footer-social" aria-label="Social links"><a href="contact.html" aria-label="Facebook">f</a><a href="contact.html" aria-label="LinkedIn">in</a><a href="contact.html" aria-label="Instagram">ig</a><a href="contact.html" aria-label="Email">@</a></div>
+        <div class="footer-social" aria-label="Social links"><a href="contact.html" aria-label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3.2 0 6.5-1.6 6.5-7A5.4 5.4 0 0 0 19 3.8 5 5 0 0 0 18.9 1S17.7.6 15 2.3a13.4 13.4 0 0 0-6 0C6.3.6 5.1 1 5.1 1A5 5 0 0 0 5 3.8a5.4 5.4 0 0 0-1.5 3.7c0 5.4 3.3 7 6.5 7a4.8 4.8 0 0 0-1 3.5v4"/><path d="M9 18c-4.5 2-5-2-7-2"/></svg></a><a href="contact.html" aria-label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a><a href="contact.html" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><a href="contact.html" aria-label="Email"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a></div>
         <div class="footer-copyright">© 2026 Sadhana Bhattarai. Built with intent.</div>
-      <div class="container footer-bottom">
-        <span>© 2026 Sadhana Bhattarai. All rights reserved.</span>
-        <span>Sample content — replace placeholders before launch.</span>
       </div>
     </footer>
 
     <script src="script.js"></script>
     <script>
-      // CHANGE THIS before launch. This is a light client-side gate, not
-      // real authentication — anyone who guesses it and knows the ?admin=1
-      // trick can approve stories. Good enough to keep casual visitors out,
-      // not for anything sensitive.
-      const ADMIN_PASSWORD = "sadhana2026";
-
-      const APPROVED_KEY = "student-reviews-approved";
-      const PENDING_KEY = "student-reviews-pending";
-
       const DEFAULT_REVIEWS = [
         {
           name: "Anisha Gurung",
@@ -291,6 +204,12 @@
         },
       ];
 
+      // NOTE: this is a simple client-side password gate, not real authentication.
+      // Anyone who views the page source can find this password. It only keeps
+      // casual visitors from stumbling into the admin panel — for real security,
+      // this workflow should eventually move behind a proper login.
+      const ADMIN_PASSWORD = "sadhana2026";
+
       function initials(name) {
         return name
           .split(" ")
@@ -306,21 +225,6 @@
         return div.innerHTML;
       }
 
-      // ---------- storage helpers ----------
-      async function getList(key) {
-        try {
-          const result = await window.storage.get(key, true);
-          return result ? JSON.parse(result.value) : [];
-        } catch (e) {
-          return [];
-        }
-      }
-
-      async function setList(key, list) {
-        await window.storage.set(key, JSON.stringify(list), true);
-      }
-
-      // ---------- public wall ----------
       function renderReviews(list) {
         const grid = document.getElementById("reviewGrid");
         if (!list || list.length === 0) {
@@ -357,13 +261,38 @@
         });
       }
 
+      async function getApproved() {
+        const { data, error } = await supabaseClient
+          .from("reviews")
+          .select("*")
+          .eq("status", "approved")
+          .order("created_at", { ascending: false });
+        if (error) {
+          console.error("Could not load approved reviews", error);
+          return [];
+        }
+        return data;
+      }
+
+      async function getPending() {
+        const { data, error } = await supabaseClient
+          .from("reviews")
+          .select("*")
+          .eq("status", "pending")
+          .order("created_at", { ascending: true });
+        if (error) {
+          console.error("Could not load pending reviews", error);
+          return [];
+        }
+        return data;
+      }
+
       async function loadReviews() {
-        const approved = await getList(APPROVED_KEY);
+        const approved = await getApproved();
         renderReviews([...DEFAULT_REVIEWS, ...approved]);
       }
       loadReviews();
 
-      // ---------- submission form (goes to pending, not live) ----------
       document
         .getElementById("reviewForm")
         .addEventListener("submit", async (e) => {
@@ -374,12 +303,13 @@
             test: document.getElementById("rvTest").value,
             score: document.getElementById("rvScore").value.trim(),
             quote: document.getElementById("rvQuote").value.trim(),
-            ts: Date.now(),
+            status: "pending",
           };
           try {
-            const pending = await getList(PENDING_KEY);
-            pending.push(newReview);
-            await setList(PENDING_KEY, pending);
+            const { error } = await supabaseClient
+              .from("reviews")
+              .insert([newReview]);
+            if (error) throw error;
             document.getElementById("reviewSuccess").classList.add("show");
             e.target.reset();
             setTimeout(
@@ -397,83 +327,87 @@
           }
         });
 
-      // ---------- admin panel ----------
-      function isAdminUrl() {
-        const params = new URLSearchParams(window.location.search);
-        return params.get("admin") === "1";
-      }
-
-      function renderPendingList(pending) {
-        const listEl = document.getElementById("adminList");
-        if (!pending.length) {
-          listEl.innerHTML =
-            '<p class="admin-empty">No pending stories right now.</p>';
+      // ---------- Admin approval panel ----------
+      function renderPending(list) {
+        const box = document.getElementById("pendingList");
+        if (!list || list.length === 0) {
+          box.innerHTML =
+            '<div class="pending-empty">No pending submissions right now.</div>';
           return;
         }
-        listEl.innerHTML = pending
+        box.innerHTML = list
           .map(
-            (r, i) => `
-    <div class="pending-card" data-index="${i}">
-      <div class="pc-meta">${escapeHtml(r.name || "")} · ${escapeHtml(r.country || "")} · ${escapeHtml(r.score || "")} (${escapeHtml(r.test || "")})</div>
-      <p class="pc-quote">"${escapeHtml(r.quote || "")}"</p>
-      <div class="pc-actions">
-        <button class="approve-btn" data-action="approve" data-index="${i}">Approve</button>
-        <button class="reject-btn" data-action="reject" data-index="${i}">Reject</button>
+            (r) => `
+    <div class="pending-card" data-id="${r.id}">
+      <div class="pc-info">
+        <div class="review-name">${escapeHtml(r.name || "")}</div>
+        <div class="review-meta">${escapeHtml(r.country || "")} · ${escapeHtml(r.score || "")} · ${escapeHtml(r.test || "")}</div>
+        <p class="review-quote">"${escapeHtml(r.quote || "")}"</p>
+      </div>
+      <div class="pending-actions">
+        <button class="pc-approve" data-action="approve" data-id="${r.id}">Approve</button>
+        <button class="pc-reject" data-action="reject" data-id="${r.id}">Reject</button>
       </div>
     </div>
   `,
           )
           .join("");
+      }
 
-        listEl.querySelectorAll("button[data-action]").forEach((btn) => {
-          btn.addEventListener("click", async () => {
-            const idx = Number(btn.getAttribute("data-index"));
-            const action = btn.getAttribute("data-action");
-            const currentPending = await getList(PENDING_KEY);
-            const [story] = currentPending.splice(idx, 1);
-            await setList(PENDING_KEY, currentPending);
+      async function loadPendingPanel() {
+        const pending = await getPending();
+        renderPending(pending);
+      }
 
-            if (action === "approve" && story) {
-              const approved = await getList(APPROVED_KEY);
-              approved.push(story);
-              await setList(APPROVED_KEY, approved);
-              await loadReviews();
+      document
+        .getElementById("pendingList")
+        .addEventListener("click", async (e) => {
+          const btn = e.target.closest("button[data-action]");
+          if (!btn) return;
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          btn.disabled = true;
+
+          if (action === "approve") {
+            const { error } = await supabaseClient
+              .from("reviews")
+              .update({ status: "approved" })
+              .eq("id", id);
+            if (error) {
+              console.error("Approve failed", error);
+              alert("Could not approve — please try again.");
+              return;
             }
+            await loadReviews();
+          } else if (action === "reject") {
+            const { error } = await supabaseClient
+              .from("reviews")
+              .delete()
+              .eq("id", id);
+            if (error) {
+              console.error("Reject failed", error);
+              alert("Could not reject — please try again.");
+              return;
+            }
+          }
 
-            const refreshedPending = await getList(PENDING_KEY);
-            renderPendingList(refreshedPending);
-          });
+          loadPendingPanel();
         });
-      }
 
-      async function unlockAdmin() {
-        document.getElementById("adminLoginBox").style.display = "none";
-        document.getElementById("adminList").style.display = "block";
-        const pending = await getList(PENDING_KEY);
-        renderPendingList(pending);
-      }
-
-      if (isAdminUrl()) {
-        const panel = document.getElementById("adminPanel");
-        panel.classList.add("show");
-        document
-          .getElementById("adminLoginBtn")
-          .addEventListener("click", () => {
-            const val = document.getElementById("adminPassword").value;
-            if (val === ADMIN_PASSWORD) {
-              unlockAdmin();
-            } else {
-              alert("Incorrect password.");
-            }
-          });
-        document
-          .getElementById("adminPassword")
-          .addEventListener("keydown", (e) => {
-            if (e.key === "Enter") {
-              document.getElementById("adminLoginBtn").click();
-            }
-          });
-      }
+      // Admin mode: visit achievements.html?admin=1 and enter the password to review submissions.
+      (function initAdmin() {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("admin") !== "1") return;
+        const entered = window.prompt(
+          "Enter admin password to review pending stories:",
+        );
+        if (entered !== ADMIN_PASSWORD) {
+          if (entered !== null) alert("Incorrect password.");
+          return;
+        }
+        document.getElementById("adminPanel").classList.add("show");
+        loadPendingPanel();
+      })();
     </script>
   </body>
 </html>
